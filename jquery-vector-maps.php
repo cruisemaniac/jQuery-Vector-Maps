@@ -56,25 +56,16 @@ function jqueryvm_plugin_shortcode($attrs) {
             $filename = 'jquery.vmap.usa.js';
             break;
     }
-    wp_register_script('jquery','http://code.jquery.com/jquery-1.11.0.min.js');
+
     wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery-noconflict', plugins_url('noconflict.js', __FILE__));
-    wp_enqueue_script('jqvmap', plugins_url('/jqvmap/jquery.vmap.min.js', __FILE__));
-    wp_enqueue_script('jqvmap_country', plugins_url('/jqvmap/maps/'.$filename, __FILE__));
-    wp_enqueue_style('jqvmap_style', plugins_url('/jqvmap/jqvmap.css', __FILE__));
+    wp_enqueue_script('jqvmap', plugins_url('/jqvmap/jqvmap/jquery.vmap.min.js', __FILE__));
+    wp_enqueue_script('jqvmap_country', plugins_url('/jqvmap/jqvmap/maps/'.$filename, __FILE__));
+    wp_enqueue_style('jqvmap_style', plugins_url('/jqvmap/jqvmap/jqvmap.css', __FILE__));
+    wp_enqueue_script('jqvmap.plugin.js', plugins_url('jqvmap.plugin.js', __FILE__));
     
+    $output = '<div id="vmap" style="width: 600px; height: 400px;"></div>';
     
-    $output = '<script type="text/javascript">
-                jQuery(document).ready(function() {
-		jQuery(\'#vmap\').vectorMap({
-		    map: \'usa_en\',
-		    enableZoom: true,
-		    showTooltip: true,
-		    selectedRegion: \'MO\'
-		});
-	});</script><div id="vmap" style="width: 600px; height: 400px;"></div>';
-    
-    return '';
+    return $output;
 }
 
 add_shortcode('jqvectormap', 'jqueryvm_plugin_shortcode');
